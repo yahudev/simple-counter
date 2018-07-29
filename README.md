@@ -1,8 +1,10 @@
-# Requirement
+# Simple Counter
+
+## Requirement
 
 Use case
 - end user click button to send vote
-- realtime boardcast stats to device, for last 10 mins graph ploting
+- boardcast vote distribution for graph ploting to device, for last 10 mins 
 
 Env
 - devices on street
@@ -19,11 +21,15 @@ Operation
 - availability, high available
 - scalability, horizonatally scalable; auto scale up/down base on load?
 
+## Initiative
+
+- enable *realtime* vote distribution boardcasting
+
 ## Assumptions
 
 - in hong kong only
 - expected response time to end user is 1s
-- realtime time update of events t
+
 
 # Design
 
@@ -40,59 +46,4 @@ Vote
 
 ## System Archtecture
 
-![Architecture](https://www.planttext.com/plantuml/svg/T9DDRjim48NtFCNR5uvXT5UaGTnuqQGA4405iZ2o8Acnn9hc2FonsrwjYnwfLoWfoR2DkalElD5xyv7wy-ltVOZInxIpGZXk20_Ma8jO2-1MtNqn7BRBlhT6osZOtSxLdNZBoaZmfkqYU8FrEFEMHv81kTOumaTy_lfSpH_gUlvKvqxhPT-XjnnF2gpUttmBkUcJYsPNIihp8P0Nv1eK5o649nsbQosXKiTS5Si6dwILJfE_7gfI9T0CdbCqhiNZ2tgfjnIXP22mG-3aDSqUNzxrx2C6jKoH4RJCRgcVDtnmK3zWYvtkI6_FWWsuQl9xybW3Ox3f_1zabZPZk55M0ig-Fm49N0BU6BvWKeoUwi61t3uNbgyrAkFIzp1-u6YLSxP68tISR0D5o7SRoL88s30wzkOdkoZji61cShQCjfmQh4R0moRFx5h6CbePhWDUJO1JA7XtqicM6kJBsnjDsT3Zm7wRfPk2xzBk7DxYv8b_yM4o5s9wcRDPUGSVy4fgn2NoCHUdqVF6LChDbH8NiiKLtU8e5FSvQFuZ_Wem0000)
-
-@startuml
-
-node Client [
-  <b>KioskApplication</b>
-]
-note right of [Client]
-  ui engine = HTML/CSS/JS
-  graph plot engine =  D3.js
-  runtime = browser
-end note
-
-
-rectangle Lb [
-  <b>Load Balancer</b>
-]
-note right of [Lb]
-  - routing IP packet base on source-IP+port 
-  - auto scale up/down by load check
-end note
-
-node Server [  
-  <b>Server Application</b>
-]
-note left of [Server]
-  app engine = socket.io
-  runtime = nodeJS  
-  env = AWS Linuxs
-  application logic should be stateless fo horizontal scaling
-end note
-
-cloud Db [
-    <b>Mongo Atlas</b>
-]
-note right of [Db]
-  - using managed service for work offloading
-end note
-
-
-node Server1 [
-    <b> Server Application </b>
-]
-
-
-Client -- Lb : Websocket
-Lb -- Server : Websocket
-Server -- Db
-
-Lb -- Server1 : Websocket
-Server1 -- Db
-
-
-@enduml
-
-
+![Architecture](https://www.planttext.com/plantuml/img/TPJ1Rjim38RlVWgUkwP1i5lH5KsJmzgbG04Fwo7eWPOPMxCY6XATB7lwKRRJfcZccwXVvCzFbE-YO91kwxBCSqcmS9Qym3e3k2bkVrYEpRnjdJKebltDjBZDNbKf1C5MjG1lO3sSUTKZdOLlyFtdqsgwoFFfOwwXAc1RG-jOW7nbFQa2bb-lVaVT39qNkqsX8l0-KiZ8bv3IPraMo0ZwoX6iYgEX5MC9z-ZG6mhdtQoAv6G2WJknleA7PsZHD2HGO2HW3v6xO6ZoyFobvI3Ggx4JXcXGgwcD7GN0jeMkdPQyzr0SmANAfYRJd7ZiaUM3VWqmU1pN_y7cQ3Fu76J9QwhqnYPoydfb-GEULEWnxokGtsbW_fB3olhkJy9OSx1_sGkwlWKij8lAxiY3OUyLeqrTYpMDreZnf84I1Niiom5nty0J-ufXBWxZUSJB4V62dHkonsjOe2-jvgDB-9Lo9q4NqmriqMD5PG_M6e8D1zXpQ3JN9c5LpQWcC0f3fUOzCsXU4BH3MwOBKO-d5AdAfUBeuyEb3J2Fs46lL7D6u6AyqnP5AFWq187GzN1tgJTz1HAXO0obmIX7HnUcPexAiTRUtU5jWfpTMb6RZUUzexAYX6Lv3qAczkouEa1irN_ejXUd8tqwCBDtuF1vP60ahz_u92UJz0wkuOMAOKOoNMfmF7kwCOPqSrba7sIpCxhPKPZTgLNz5Vm3)
